@@ -34,6 +34,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Maps;
+
 /**
  * Http客户端
  */
@@ -144,6 +146,11 @@ public class HttpClient {
 	public void clearParameter(){
 		if(params != null) {
 			params.clear();
+		}
+	}
+	public void addParameter(String key,Object value){
+		if(key != null && value != null) {
+			params.add(Maps.immutableEntry(key, value));
 		}
 	}
 	public void addHeader(String key,String value){

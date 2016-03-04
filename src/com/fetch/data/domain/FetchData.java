@@ -95,7 +95,49 @@ public class FetchData {
 	private String endDate;
 	
 	private String pageUrl;
+	
+	private String approvalDate;
+	
+	private String status;
+	
+	private String agency;
+	
+	private String sourceOfFunding;
+	
+	private String totalCost;
+	
+	private String cost;
+	
+	private String listingTime;
+	
+	private String patent;
+	
+	private String financingMode;
+	
+	private String expectedInvestmentArea;
+	
+	private String turnover;
+	
+	private String netProfit;
+	
+	private String grossProfit;
+	
+	private String EBITDA;
 
+	private String asset;
+	
+	private String potential;
+	
+	private String advantage;
+	
+	private String financialInformation;
+	
+	private String projectCapitals;
+	
+	private String projectInvironment;
+	
+	private String descOfInvestorConditions;
+	
 	public String getName() {
 		if (name == null) {
 			return "";
@@ -316,6 +358,174 @@ public class FetchData {
 		this.pageUrl = pageUrl;
 	}
 	
+	public String getApprovalDate() {
+		return approvalDate;
+	}
+
+	public void setApprovalDate(String approvalDate) {
+		this.approvalDate = approvalDate;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getAgency() {
+		return agency;
+	}
+
+	public void setAgency(String agency) {
+		this.agency = agency;
+	}
+
+	public String getSourceOfFunding() {
+		return sourceOfFunding;
+	}
+
+	public void setSourceOfFunding(String sourceOfFunding) {
+		this.sourceOfFunding = sourceOfFunding;
+	}
+
+	public String getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(String totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	public String getCost() {
+		return cost;
+	}
+
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
+
+	public String getListingTime() {
+		return listingTime;
+	}
+
+	public void setListingTime(String listingTime) {
+		this.listingTime = listingTime;
+	}
+
+	public String getPatent() {
+		return patent;
+	}
+
+	public void setPatent(String patent) {
+		this.patent = patent;
+	}
+
+	public String getFinancingMode() {
+		return financingMode;
+	}
+
+	public void setFinancingMode(String financingMode) {
+		this.financingMode = financingMode;
+	}
+
+	public String getExpectedInvestmentArea() {
+		return expectedInvestmentArea;
+	}
+
+	public void setExpectedInvestmentArea(String expectedInvestmentArea) {
+		this.expectedInvestmentArea = expectedInvestmentArea;
+	}
+
+	public String getTurnover() {
+		return turnover;
+	}
+
+	public void setTurnover(String turnover) {
+		this.turnover = turnover;
+	}
+
+	public String getNetProfit() {
+		return netProfit;
+	}
+
+	public void setNetProfit(String netProfit) {
+		this.netProfit = netProfit;
+	}
+	
+	public String getGrossProfit() {
+		return grossProfit;
+	}
+
+	public void setGrossProfit(String grossProfit) {
+		this.grossProfit = grossProfit;
+	}
+
+	public String getEBITDA() {
+		return EBITDA;
+	}
+
+	public void setEBITDA(String eBITDA) {
+		EBITDA = eBITDA;
+	}
+	
+	public String getAsset() {
+		return asset;
+	}
+
+	public void setAsset(String asset) {
+		this.asset = asset;
+	}
+
+	public String getPotential() {
+		return potential;
+	}
+
+	public void setPotential(String potential) {
+		this.potential = potential;
+	}
+
+	public String getAdvantage() {
+		return advantage;
+	}
+
+	public void setAdvantage(String advantage) {
+		this.advantage = advantage;
+	}
+
+	public String getFinancialInformation() {
+		return financialInformation;
+	}
+
+	public void setFinancialInformation(String financialInformation) {
+		this.financialInformation = financialInformation;
+	}
+
+	public String getProjectCapitals() {
+		return projectCapitals;
+	}
+
+	public void setProjectCapitals(String projectCapitals) {
+		this.projectCapitals = projectCapitals;
+	}
+
+	public String getProjectInvironment() {
+		return projectInvironment;
+	}
+
+	public void setProjectInvironment(String projectInvironment) {
+		this.projectInvironment = projectInvironment;
+	}
+
+	public String getDescOfInvestorConditions() {
+		return descOfInvestorConditions;
+	}
+
+	public void setDescOfInvestorConditions(String descOfInvestorConditions) {
+		this.descOfInvestorConditions = descOfInvestorConditions;
+	}
+
 	@Override
 	public String toString() {
 		return "name="+getName()+",country="+getCountry()+",state="+getState()+",city="+getCity()+",location="+getLocation()

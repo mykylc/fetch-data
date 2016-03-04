@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class FetchDataThreadPool {
 	 private static final int QUEUE_NUMBER = 500;
-	 public static final ExecutorService exec =  new ThreadPoolExecutor(100, 150, 0L, TimeUnit.MILLISECONDS,  
+	 public static final ExecutorService exec =  new ThreadPoolExecutor(350, 500, 0L, TimeUnit.MILLISECONDS,  
 			 new LinkedBlockingQueue<Runnable>(QUEUE_NUMBER),
 			 new ThreadFactory() {
 	        private final String threadPoolPrefix = "FetchDataThreadPool-Thread-";

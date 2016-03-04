@@ -64,11 +64,19 @@ public class DBManager {
 			pst.setString(17, fetchData.getReasonForSale());
 			pst.setString(18, fetchData.getListingDate());
 			pst.setString(19, fetchData.getEndDate());
-			pst.setString(20, fetchData.getPageUrl());
 			
+			pst.setString(20, fetchData.getApprovalDate());
+			pst.setString(21, fetchData.getStatus());
+			pst.setString(22, fetchData.getAgency());
+			pst.setString(23, fetchData.getSourceOfFunding());
+			pst.setString(24, fetchData.getTotalCost());
+			pst.setString(25, fetchData.getCost());
+			
+			pst.setString(26, fetchData.getPageUrl());
 			pst.executeUpdate();
+			log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
 		} catch (Exception e) {
-			log.error(String.format("[DBManager.prepareSql] 执行sql语句：%s,报错：%s", sql, e.getMessage()), e);
+			log.error(String.format("[DBManager.prepareSql] 执行sql语句：%s,url=%s,报错：%s", sql, fetchData.getPageUrl(), e.getMessage()), e);
 			throw e;
 		}
 	}
@@ -96,4 +104,5 @@ public class DBManager {
 			throw e;
 		}
 	}
+	
 }

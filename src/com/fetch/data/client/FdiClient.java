@@ -1,8 +1,11 @@
 package com.fetch.data.client;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.Semaphore;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,12 +25,11 @@ public abstract class FdiClient extends AbstractClient{
 	
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
-	final Semaphore semp = new Semaphore(20);
-	
 	public final static String domain = "http://project.fdi.gov.cn";
 	public static int pageSize = 25;
 	public static int currentPage = 1;
 	public final String charset = "gb2312";
+	//public static Set<String> set = new HashSet<String>(); 
 	
 	// 提取总条数的正则表达式
 	public static final Pattern pageCountPattern = Pattern.compile(
@@ -138,6 +140,44 @@ public abstract class FdiClient extends AbstractClient{
 		return null;
 	} 
     
+	/**
+	 * 根据每页获取URL列表
+	 * @param url
+	 * @param urlListPattern
+	 * @param domain
+	 * @return void
+	 * @throws Exception
+	 */
+	public void getUrlListByPage2(String url, Pattern urlListPattern, String domain, String charset) throws Exception{
+		try {
+			List<String> urlList = new ArrayList<String>();
+			HttpUtils httpUtils = new HttpUtils(url, charset);
+			String result = httpUtils.execute();
+			if (result==null) {
+				return;
+			}
+			log.debug(result);
+			Matcher urlListmatcher = urlListPattern.matcher(result);
+            while (urlListmatcher.find()) {
+            	String hrefUrl = urlListmatcher.group(1);
+            	//if(set.add(hrefUrl)){
+            		if (hrefUrl.startsWith("http://")) {
+                		urlList.add(hrefUrl);
+                		log.debug(hrefUrl);
+    				} else {
+    					urlList.add(domain+hrefUrl);
+    					log.debug(domain+hrefUrl);
+    				}
+            	//}
+            	
+            }
+            handlerData(urlList, charset);
+		} catch (Exception e) {
+			log.error(String.format("[AbstractClient.getUrlListByPage] url=%s; 根据每页获取URL列表报错：%s", url, e.getMessage()), e);
+			throw e;
+		}
+	}
+	
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
 		log.debug(content);

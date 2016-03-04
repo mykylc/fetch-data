@@ -84,10 +84,10 @@ public class Bootstrap2 {
 	//Fdi
 	public static void startFdi(){
 		try {
-//			FdiSinfoClient client = new FdiSinfoClient();
-//			client.fetchData();
-			FdibbSinfoClient client2 = new FdibbSinfoClient();
-			client2.fetchData();
+			FdiSinfoClient client = new FdiSinfoClient();
+			client.fetchData();
+//			FdibbSinfoClient client2 = new FdibbSinfoClient();
+//			client2.fetchData();
 		} catch (Exception e) {
 			log.error("处理【Fdi】网站出错"+e.getMessage(), e);
 		}

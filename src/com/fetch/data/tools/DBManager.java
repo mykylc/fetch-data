@@ -71,8 +71,18 @@ public class DBManager {
 			pst.setString(23, fetchData.getSourceOfFunding());
 			pst.setString(24, fetchData.getTotalCost());
 			pst.setString(25, fetchData.getCost());
+			pst.setString(26, fetchData.getInvestmentMode());
+			pst.setString(27, fetchData.getProjectAdvantage());
+			pst.setString(28, fetchData.getValidityPeriod());
+			pst.setString(29, fetchData.getProjectProperties());
+			pst.setString(30, fetchData.getProjectCapitals());
+			pst.setString(31, fetchData.getExpectedAnnualRevenue());
+			pst.setString(32, fetchData.getExpectedPaybackPeriod());
+			pst.setString(33, fetchData.getDescOfEnvironmentProtection());
+			pst.setString(34, fetchData.getDescOfInvestorConditions());
 			
-			pst.setString(26, fetchData.getPageUrl());
+			
+			pst.setString(35, fetchData.getPageUrl());
 			pst.executeUpdate();
 			log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
 		} catch (Exception e) {

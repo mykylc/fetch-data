@@ -84,7 +84,7 @@ public class DBManager {
 			
 			pst.setString(35, fetchData.getPageUrl());
 			pst.executeUpdate();
-			log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
+			//log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
 		} catch (Exception e) {
 			log.error(String.format("[DBManager.prepareSql] 执行sql语句：%s,url=%s,报错：%s", sql, fetchData.getPageUrl(), e.getMessage()), e);
 			throw e;

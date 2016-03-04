@@ -34,9 +34,8 @@ public class FdiSinfoClient extends FdiClient{
 			getUrlListByPage(url, urlListPattern, domain, charset);
 			while (page.hasNextPage()) {
 				semp.acquire();
-				int next = page.getNextPage();
-				final int nextPage = next - 1;
-				page.setCurrentPage(next);
+				final int nextPage = page.getNextPage();
+				page.setCurrentPage(nextPage);
 				FetchDataThreadPool.exec.execute(new Runnable() {
 					@Override
 					public void run() {

@@ -40,8 +40,8 @@ public class Bootstrap2 {
 	
 	public static void start() throws Exception{
 		DBManager.loadPageUrl();
-		log.info("http://www.tpdeals.cn/ begin...");
-		startIic();
+		log.info("http://www.FdibbSinfoClient.cn/ begin...");
+		startFdi();
 		DBManager.close();
 		FetchDataThreadPool.exec.shutdown();
 	}
@@ -84,8 +84,8 @@ public class Bootstrap2 {
 	//Fdi
 	public static void startFdi(){
 		try {
-			FdiSinfoClient client = new FdiSinfoClient();
-			client.fetchData();
+//			FdiSinfoClient client = new FdiSinfoClient();
+//			client.fetchData();
 			FdibbSinfoClient client2 = new FdibbSinfoClient();
 			client2.fetchData();
 		} catch (Exception e) {

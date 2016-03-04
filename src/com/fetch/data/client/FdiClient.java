@@ -64,8 +64,8 @@ public abstract class FdiClient extends AbstractClient{
     		"<TD class=xmnrmk1>Location</TD><TD class=xmnrmk2>(.*?)</TD>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
-    //提取Project Advantages
-    private static final Pattern projectAdvantagesPattern = Pattern.compile(
+    //提取Project Advantage
+    private static final Pattern projectAdvantagePattern = Pattern.compile(
     		"<TD class=xmnrmk1>Project Advantages</TD><TD class=xmnrmk2>(.*?)</TD>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
@@ -140,7 +140,7 @@ public abstract class FdiClient extends AbstractClient{
     
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
-		log.info(content);
+		log.debug(content);
 		FetchData data = new FetchData();
 		data.setPageUrl(pageUrl);
 		Matcher nameMatcher = namePattern.matcher(content);
@@ -153,7 +153,7 @@ public abstract class FdiClient extends AbstractClient{
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//小写的mm表示的是分钟  
 			Date date = sdf.parse(listingDateMatcher.group(1));
 			sdf = new SimpleDateFormat("yyyy-MM-dd");
-			log.info(sdf.format(date));
+			log.debug(sdf.format(date));
 			data.setListingDate(sdf.format(date));
 		}
 		Matcher projectTypeMatcher = projectTypePattern.matcher(content);
@@ -164,12 +164,13 @@ public abstract class FdiClient extends AbstractClient{
 		
 		Matcher investmentMatcher = investmentModePattern.matcher(content);
 		if (investmentMatcher.find()) {
-			log.debug(investmentMatcher.group(1).replaceAll("\\s+", ""));
+			log.debug(investmentMatcher.group(1));
+			data.setInvestmentMode(investmentMatcher.group(1));
 		}
 		Matcher industryMatcher = industryPattern.matcher(content);
 		if (industryMatcher.find()) {
-			log.debug(industryMatcher.group(1).replaceAll("<[^>]+>", ""));
-			data.setIndustry(industryMatcher.group(1).replaceAll("<[^>]+>", ""));
+			log.debug(industryMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
+			data.setIndustry(industryMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
 		}
 		
 		Matcher locationMatcher = locationPattern.matcher(content);
@@ -178,21 +179,25 @@ public abstract class FdiClient extends AbstractClient{
 			data.setLocation(locationMatcher.group(1));
 		}
 		
-		Matcher projectAdvantagesMatcher = projectAdvantagesPattern.matcher(content);
-		if (projectAdvantagesMatcher.find()) {
-			log.debug(projectAdvantagesMatcher.group(1));
+		Matcher projectAdvantageMatcher = projectAdvantagePattern.matcher(content);
+		if (projectAdvantageMatcher.find()) {
+			log.debug(projectAdvantageMatcher.group(1));
+			data.setProjectAdvantage(projectAdvantageMatcher.group(1));
 		}
 		Matcher validityPeriodMatcher = validityPeriodPattern.matcher(content);
 		if (validityPeriodMatcher.find()) {
 			log.debug(validityPeriodMatcher.group(1));
+			data.setValidityPeriod(validityPeriodMatcher.group(1));
 		}
 		Matcher projectPropertiesMatcher = projectPropertiesPattern.matcher(content);
 		if (projectPropertiesMatcher.find()) {
 			log.debug(projectPropertiesMatcher.group(1));
+			data.setProjectProperties(projectPropertiesMatcher.group(1));
 		}
 		Matcher projectCapitalsMatcher = projectCapitalsPattern.matcher(content);
 		if (projectCapitalsMatcher.find()) {
 			log.debug(projectCapitalsMatcher.group(1).replaceAll("&nbsp;", " "));
+			data.setProjectCapitals(projectCapitalsMatcher.group(1).replaceAll("&nbsp;", " "));
 		}
 		Matcher priceMatcher = pricePattern.matcher(content);
 		if (priceMatcher.find()) {
@@ -203,19 +208,23 @@ public abstract class FdiClient extends AbstractClient{
 		Matcher expectedAnnualRevenueMatcher = expectedAnnualRevenuePattern.matcher(content);
 		if (expectedAnnualRevenueMatcher.find()) {
 			log.debug(expectedAnnualRevenueMatcher.group(1).replaceAll("&nbsp;", ""));
+			data.setExpectedAnnualRevenue(expectedAnnualRevenueMatcher.group(1).replaceAll("&nbsp;", ""));
 		}
 		
 		Matcher expectedPaybackPeriodMatcher = expectedPaybackPeriodPattern.matcher(content);
 		if (expectedPaybackPeriodMatcher.find()) {
 			log.debug(expectedPaybackPeriodMatcher.group(1).replaceAll("&nbsp;", ""));
+			data.setExpectedPaybackPeriod(expectedPaybackPeriodMatcher.group(1).replaceAll("&nbsp;", ""));
 		}
 		Matcher protectionMatcher = protectionPattern.matcher(content);
 		if (protectionMatcher.find()) {
 			log.debug(protectionMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
+			data.setDescOfEnvironmentProtection(protectionMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
 		}
 		Matcher conditionsMatcher = conditionsPattern.matcher(content);
 		if (conditionsMatcher.find()) {
 			log.debug(conditionsMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
+			data.setDescOfInvestorConditions(conditionsMatcher.group(1).replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
 		}
 		
 		Matcher descriptionMatcher = descriptionPattern.matcher(content);

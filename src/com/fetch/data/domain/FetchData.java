@@ -108,6 +108,24 @@ public class FetchData {
 	
 	private String cost;
 	
+	private String investmentMode;
+	
+	private String projectAdvantage;
+	
+	private String validityPeriod;
+	
+	private String projectProperties;
+	
+	private String projectCapitals;
+	
+	private String expectedAnnualRevenue;
+	
+	private String expectedPaybackPeriod;
+	
+	private String descOfEnvironmentProtection;
+	
+	private String descOfInvestorConditions;
+	
 	private String listingTime;
 	
 	private String patent;
@@ -132,11 +150,7 @@ public class FetchData {
 	
 	private String financialInformation;
 	
-	private String projectCapitals;
-	
 	private String projectInvironment;
-	
-	private String descOfInvestorConditions;
 	
 	public String getName() {
 		if (name == null) {
@@ -405,7 +419,79 @@ public class FetchData {
 	public void setCost(String cost) {
 		this.cost = cost;
 	}
+	
+	public String getInvestmentMode() {
+		return investmentMode;
+	}
 
+	public void setInvestmentMode(String investmentMode) {
+		this.investmentMode = investmentMode;
+	}
+	
+	public String getProjectAdvantage() {
+		return projectAdvantage;
+	}
+
+	public void setProjectAdvantage(String projectAdvantage) {
+		this.projectAdvantage = projectAdvantage;
+	}
+
+	public String getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	public void setValidityPeriod(String validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	public String getProjectProperties() {
+		return projectProperties;
+	}
+
+	public void setProjectProperties(String projectProperties) {
+		this.projectProperties = projectProperties;
+	}
+	
+	public String getProjectCapitals() {
+		return projectCapitals;
+	}
+
+	public void setProjectCapitals(String projectCapitals) {
+		this.projectCapitals = projectCapitals;
+	}
+	
+	public String getExpectedAnnualRevenue() {
+		return expectedAnnualRevenue;
+	}
+
+	public void setExpectedAnnualRevenue(String expectedAnnualRevenue) {
+		this.expectedAnnualRevenue = expectedAnnualRevenue;
+	}
+
+	public String getExpectedPaybackPeriod() {
+		return expectedPaybackPeriod;
+	}
+
+	public void setExpectedPaybackPeriod(String expectedPaybackPeriod) {
+		this.expectedPaybackPeriod = expectedPaybackPeriod;
+	}
+
+	public String getDescOfEnvironmentProtection() {
+		return descOfEnvironmentProtection;
+	}
+
+	public void setDescOfEnvironmentProtection(String descOfEnvironmentProtection) {
+		this.descOfEnvironmentProtection = descOfEnvironmentProtection;
+	}
+	
+	public String getDescOfInvestorConditions() {
+		return descOfInvestorConditions;
+	}
+
+	public void setDescOfInvestorConditions(String descOfInvestorConditions) {
+		this.descOfInvestorConditions = descOfInvestorConditions;
+	}
+	
 	public String getListingTime() {
 		return listingTime;
 	}
@@ -502,28 +588,12 @@ public class FetchData {
 		this.financialInformation = financialInformation;
 	}
 
-	public String getProjectCapitals() {
-		return projectCapitals;
-	}
-
-	public void setProjectCapitals(String projectCapitals) {
-		this.projectCapitals = projectCapitals;
-	}
-
 	public String getProjectInvironment() {
 		return projectInvironment;
 	}
 
 	public void setProjectInvironment(String projectInvironment) {
 		this.projectInvironment = projectInvironment;
-	}
-
-	public String getDescOfInvestorConditions() {
-		return descOfInvestorConditions;
-	}
-
-	public void setDescOfInvestorConditions(String descOfInvestorConditions) {
-		this.descOfInvestorConditions = descOfInvestorConditions;
 	}
 
 	@Override

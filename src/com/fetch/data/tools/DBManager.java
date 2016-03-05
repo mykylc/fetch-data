@@ -81,8 +81,20 @@ public class DBManager {
 			pst.setString(33, fetchData.getDescOfEnvironmentProtection());
 			pst.setString(34, fetchData.getDescOfInvestorConditions());
 			
+			pst.setString(35, fetchData.getListingTime());
+			pst.setString(36, fetchData.getExpectedIndustry());
+			pst.setString(37, fetchData.getExpectedCapital());
+			pst.setString(38, fetchData.getExpectedIndustryCaracteristics());
 			
-			pst.setString(35, fetchData.getPageUrl());
+			pst.setString(39, fetchData.getExpectedLocation());
+			pst.setString(40, fetchData.getExpectedFinancialRatios());
+			pst.setString(41, fetchData.getBusinessDescription());
+			pst.setString(42, fetchData.getFinancialRatios());
+			pst.setString(43, fetchData.getCompanyProperites());
+			pst.setString(44, fetchData.getFinancingMode());
+			
+			
+			pst.setString(45, fetchData.getPageUrl());
 			pst.executeUpdate();
 			log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
 		} catch (Exception e) {

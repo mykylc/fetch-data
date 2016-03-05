@@ -14,8 +14,9 @@ public class FetchDataDao {
 			+ "shares_percentage, highlight, asset_type, valuation, payback_rate, asset_owner, reason_for_sale, listing_date, end_date, approval_date, "
 			+ "status, agency, source_of_funding, total_cost, cost, investment_mode, project_advantage, validity_period, project_properties, "
 			+ "project_capitals, expected_annual_revenue, expected_payback_period, desc_of_environment_protection, desc_of_investor_conditions, "
-			+ "page_url, inserting_time) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+			+ "listing_time, expected_industry, expected_capital, expected_industry_caracteristics, expected_location, expected_financial_ratios, "
+			+ "business_description, financial_ratios, company_properites, financing_mode, page_url, inserting_time) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
 			+ "NOW());";
 	
 	public void insert(FetchData fetchData) throws Exception{

@@ -7,11 +7,10 @@ import com.fetch.data.client.AdbClient;
 import com.fetch.data.client.AfdbClient;
 import com.fetch.data.client.EibClient;
 import com.fetch.data.client.FdiSinfoClient;
-import com.fetch.data.client.FdibbSinfoClient;
 import com.fetch.data.client.FirstNetClient;
 import com.fetch.data.client.IicClient;
+import com.fetch.data.client.InvestClient;
 import com.fetch.data.client.InvestRongZiClient;
-import com.fetch.data.client.InvestTouZiClient;
 import com.fetch.data.client.RztongClient;
 import com.fetch.data.client.ShftzClient;
 import com.fetch.data.client.TpdealsBFSClient;
@@ -41,7 +40,7 @@ public class Bootstrap2 {
 	public static void start() throws Exception{
 		DBManager.loadPageUrl();
 		log.info("http://www.FdibbSinfoClient.cn/ begin...");
-		startFdi();
+		startInvest();
 		DBManager.close();
 		FetchDataThreadPool.exec.shutdown();
 	}
@@ -95,9 +94,9 @@ public class Bootstrap2 {
 	//Invest
 	public static void startInvest(){
 		try {
-			InvestRongZiClient client = new InvestRongZiClient();
+			//InvestRongZiClient client = new InvestRongZiClient();
 			//client.fetchData();
-			InvestTouZiClient client2 = new InvestTouZiClient();
+			InvestClient client2 = new InvestClient();
 			client2.fetchData();
 		} catch (Exception e) {
 			log.error("处理【Invest】网站出错"+e.getMessage(), e);

@@ -128,9 +128,25 @@ public class FetchData {
 	
 	private String listingTime;
 	
-	private String patent;
+	private String expectedIndustry;
+	
+	private String expectedCapital;
+	
+	private String expectedIndustryCaracteristics;
+	
+	private String expectedLocation;
+	
+	private String expectedFinancialRatios;
+	
+	private String businessDescription;
+	
+	private String financialRatios;
+	
+	private String companyProperites;
 	
 	private String financingMode;
+	
+	private String patent;
 	
 	private String expectedInvestmentArea;
 	
@@ -500,20 +516,85 @@ public class FetchData {
 		this.listingTime = listingTime;
 	}
 
-	public String getPatent() {
-		return patent;
+	public String getExpectedIndustry() {
+		return expectedIndustry;
 	}
 
-	public void setPatent(String patent) {
-		this.patent = patent;
+	public void setExpectedIndustry(String expectedIndustry) {
+		this.expectedIndustry = expectedIndustry;
 	}
 
+	public String getExpectedCapital() {
+		return expectedCapital;
+	}
+
+	public void setExpectedCapital(String expectedCapital) {
+		this.expectedCapital = expectedCapital;
+	}
+
+	public String getExpectedIndustryCaracteristics() {
+		return expectedIndustryCaracteristics;
+	}
+
+	public void setExpectedIndustryCaracteristics(
+			String expectedIndustryCaracteristics) {
+		this.expectedIndustryCaracteristics = expectedIndustryCaracteristics;
+	}
+
+	public String getExpectedLocation() {
+		return expectedLocation;
+	}
+
+	public void setExpectedLocation(String expectedLocation) {
+		this.expectedLocation = expectedLocation;
+	}
+
+	public String getExpectedFinancialRatios() {
+		return expectedFinancialRatios;
+	}
+
+	public void setExpectedFinancialRatios(String expectedFinancialRatios) {
+		this.expectedFinancialRatios = expectedFinancialRatios;
+	}
+
+	public String getBusinessDescription() {
+		return businessDescription;
+	}
+
+	public void setBusinessDescription(String businessDescription) {
+		this.businessDescription = businessDescription;
+	}
+
+	public String getFinancialRatios() {
+		return financialRatios;
+	}
+
+	public void setFinancialRatios(String financialRatios) {
+		this.financialRatios = financialRatios;
+	}
+
+	public String getCompanyProperites() {
+		return companyProperites;
+	}
+
+	public void setCompanyProperites(String companyProperites) {
+		this.companyProperites = companyProperites;
+	}
+	
 	public String getFinancingMode() {
 		return financingMode;
 	}
 
 	public void setFinancingMode(String financingMode) {
 		this.financingMode = financingMode;
+	}
+	
+	public String getPatent() {
+		return patent;
+	}
+
+	public void setPatent(String patent) {
+		this.patent = patent;
 	}
 
 	public String getExpectedInvestmentArea() {

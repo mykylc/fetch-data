@@ -32,10 +32,20 @@ CREATE TABLE `fetch_data` (
   `project_capitals` varchar(512) DEFAULT NULL,
   `expected_annual_revenue` varchar(512) DEFAULT NULL,
   `expected_payback_period` varchar(512) DEFAULT NULL,
-  `desc_of_environment_protection` varchar(3000) DEFAULT NULL,
-  `desc_of_investor_conditions` varchar(3000) DEFAULT NULL,
+  `desc_of_environment_protection` text,
+  `desc_of_investor_conditions` text,
+  `listing_time` varchar(256) DEFAULT NULL,
+  `expected_industry` varchar(256) DEFAULT NULL,
+  `expected_capital` varchar(256) DEFAULT NULL,
+  `expected_industry_caracteristics` varchar(512) DEFAULT NULL,
+  `expected_location` varchar(256) DEFAULT NULL,
+  `expected_financial_ratios` varchar(256) DEFAULT NULL,
+  `business_description` varchar(1024) DEFAULT NULL,
+  `financial_ratios` varchar(256) DEFAULT NULL,
+  `company_properites` varchar(256) DEFAULT NULL,
+  `financing_mode` varchar(256) DEFAULT NULL,
   `page_url` varchar(512) DEFAULT NULL,
   `inserting_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20675 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21141 DEFAULT CHARSET=utf8;
 

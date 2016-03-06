@@ -1,6 +1,9 @@
 package com.fetch.data.client;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
@@ -8,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fetch.data.domain.Page;
 import com.fetch.data.tools.FetchDataThreadPool;
+import com.fetch.data.tools.HttpUtils;
 
 /**
  * Tpdeals businesses-sought
@@ -43,7 +47,7 @@ public class TpdealsBSClient extends TpdealsClient{
 				return;
 			}
 			log.debug(page.getPageCount()+"");
-			getUrlListByPage(url, urlListPattern, domain, charset);
+			getUrlListByPage2(url, urlListPattern, domain, charset);
 			while (page.hasNextPage()) {
 				semp.acquire();
 				int next = page.getNextPage();
@@ -54,7 +58,7 @@ public class TpdealsBSClient extends TpdealsClient{
 					public void run() {
 						try {
 							String urlPage = domain + webSite + nextPage;
-							getUrlListByPage(urlPage, urlListPattern, domain, charset);
+							getUrlListByPage2(urlPage, urlListPattern, domain, charset);
 						} catch (Exception e) {
 							log.error("启动线程报错："+e.getMessage(), e);
 						} finally {
@@ -73,5 +77,39 @@ public class TpdealsBSClient extends TpdealsClient{
 			throw e;
 		}
 	}
-	
+    /**
+	 * 根据每页获取URL列表
+	 * @param url
+	 * @param urlListPattern
+	 * @param domain
+	 * @return void
+	 * @throws Exception
+	 */
+	public void getUrlListByPage2(String url, Pattern urlListPattern, String domain, String charset) throws Exception{
+		try {
+			List<String> urlList = new ArrayList<String>();
+			HttpUtils httpUtils = new HttpUtils(url, charset);
+			String result = httpUtils.execute();
+			if (result==null) {
+				return;
+			}
+			log.debug(result);
+			Matcher urlListmatcher = urlListPattern.matcher(result);
+            while (urlListmatcher.find()) {
+            	String hrefUrl = urlListmatcher.group(1);
+            	hrefUrl = hrefUrl.replaceAll("&#233;", "%C3%A9");
+            	if (hrefUrl.startsWith("http://")) {
+            		urlList.add(hrefUrl);
+            		log.debug(hrefUrl);
+				} else {
+					urlList.add(domain+hrefUrl);
+					log.debug(domain+hrefUrl);
+				}
+            }
+            handlerData(urlList, charset);
+		} catch (Exception e) {
+			log.error(String.format("[AbstractClient.getUrlListByPage] url=%s; 根据每页获取URL列表报错：%s", url, e.getMessage()), e);
+			throw e;
+		}
+	}
 }

@@ -27,7 +27,7 @@ public class TpdealsBSClient extends TpdealsClient{
 	private final String charset = "UTF-8";
     // 提取总页数的正则表达式
     private static final Pattern pageCountPattern = Pattern.compile(
-    		"<li><a href=\"/businesses-for-sale.*?>(.*?)</a></li>\\s+<li class=\"next\">", 
+    		"<li><a href=\"/businesses-sought.*?>(.*?)</a></li>\\s+<li class=\"next\">", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     // 提取URL列表的正则表达式
     private static final Pattern urlListPattern = Pattern.compile(

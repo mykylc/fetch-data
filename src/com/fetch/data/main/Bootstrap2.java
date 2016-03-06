@@ -25,7 +25,6 @@ import com.fetch.data.client.TurnerbutlerManufacturingClient;
 import com.fetch.data.client.TurnerbutlerRetailClient;
 import com.fetch.data.client.TurnerbutlerServicesClient;
 import com.fetch.data.client.TurnerbutlerTransportClient;
-import com.fetch.data.domain.FetchData;
 import com.fetch.data.tools.DBManager;
 import com.fetch.data.tools.FetchDataMainThreadPool;
 import com.fetch.data.tools.FetchDataThreadPool;

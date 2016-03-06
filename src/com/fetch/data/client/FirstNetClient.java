@@ -32,6 +32,8 @@ public class FirstNetClient extends AbstractClient{
 	private final static String domain = "http://www.first-net.cn";
 	private final static String webSite = "/portal/project_showLatestInvestmentList?filter=1&latestInvestment.from=pt&pagination.pageSize=20&pagination.pageIndex=";
 	private final static String prefix = "http://www.first-net.cn/portal/project_introduction?project.id=";
+	private final static String prefix2 = "http://www.first-net.cn/portal/plan_queryPlanSummaryById?plan.id=";
+	
 	private static int pageSize = 20;
 	private static int currentPage = 0;
 	private final String charset = "utf-8";
@@ -103,7 +105,7 @@ public class FirstNetClient extends AbstractClient{
 			if (result==null) {
 				return null;
 			}
-			log.info(result);
+			log.debug(result);
 			JSONObject jsonObject = JSONObject.parseObject(result);
 			Page page = new Page();
 			page.setTotalCount(Integer.parseInt(jsonObject.getString("total")));
@@ -137,7 +139,11 @@ public class FirstNetClient extends AbstractClient{
 			JSONArray jsonArray = jsonObject.getJSONArray("result");
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject json = (JSONObject)jsonArray.get(i);
+				String fromType = json.getString("fromType");
 				String hrefUrl = prefix + json.getString("id");
+				if ("2".equals(fromType)) {
+					hrefUrl = prefix2 + json.getString("id");
+				}
 				urlList.add(hrefUrl);
 				FetchData fetchData = new FetchData();
 				fetchData.setIndustry(getTypeName(json.getString("projectType")));
@@ -187,7 +193,7 @@ public class FirstNetClient extends AbstractClient{
 	}
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
-		//log.info(content);
+		log.debug(content);
 		FetchData data = map.get(pageUrl);
 		Matcher nameMatcher = namePattern.matcher(content);
 		if (nameMatcher.find()) {
@@ -197,8 +203,15 @@ public class FirstNetClient extends AbstractClient{
 		Matcher descriptionMatcher = descriptionPattern.matcher(content);
 		if (descriptionMatcher.find()) {
 			String desc1 = descriptionMatcher.group(1).replaceAll("\\s+", "").replaceAll("<[^>]+>", "");
-			log.info(desc1);
+			log.debug(desc1);
 			data.setDescription(desc1);
+		}
+		if (pageUrl.startsWith(prefix2)) {
+			JSONObject jsonObject = JSONObject.parseObject(content);
+			String result = jsonObject.getString("result");
+			JSONObject parseObject = JSONObject.parseObject(result);
+			data.setName(parseObject.getString("name"));
+			data.setDescription(parseObject.getString("summary").replaceAll("\\s+", "").replaceAll("<[^>]+>", "").replaceAll("&nbsp;", ""));
 		}
 		return data;
 	}

@@ -7,12 +7,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FetchDataThreadPool {
-	 private static final int QUEUE_NUMBER = 500;
-	 public static final ExecutorService exec =  new ThreadPoolExecutor(400, 500, 0L, TimeUnit.MILLISECONDS,  
+public class FetchDataMainThreadPool {
+	 private static final int QUEUE_NUMBER = 50;
+	 public static final ExecutorService exec =  new ThreadPoolExecutor(30, 50, 0L, TimeUnit.MILLISECONDS,  
 			 new LinkedBlockingQueue<Runnable>(QUEUE_NUMBER),
 			 new ThreadFactory() {
-	        private final String threadPoolPrefix = "FetchDataThreadPool-Thread-";
+	        private final String threadPoolPrefix = "FetchDataMainThreadPool-Thread-";
 	        public  AtomicInteger counter = new AtomicInteger(0);
 	        public Thread newThread(Runnable r) {
 	            Thread t = new Thread(r);

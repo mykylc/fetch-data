@@ -92,7 +92,7 @@ public class ShftzClient extends AbstractClient{
 			if (page == null) {
 				return;
 			}
-			log.info(page.getPageCount()+"");
+			log.debug(page.getPageCount()+"");
 			getUrlListByPage(url, currentPage);
 			while (page.hasNextPage()) {
 				semp.acquire();
@@ -187,7 +187,7 @@ public class ShftzClient extends AbstractClient{
     
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
-		log.info(content);
+		log.debug(content);
 		FetchData data = new FetchData();
 		data.setPageUrl(pageUrl);
 		Matcher nameMatcher = namePattern.matcher(content);
@@ -208,12 +208,12 @@ public class ShftzClient extends AbstractClient{
 		
 		Matcher industryMatcher = industryPattern.matcher(content);
 		if (industryMatcher.find()) {
-			log.info(industryMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
+			log.debug(industryMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
 			data.setIndustry(industryMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
 		}
 		Matcher projectTypeMatcher = projectTypePattern.matcher(content);
 		if (projectTypeMatcher.find()) {
-			log.info(projectTypeMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
+			log.debug(projectTypeMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
 			data.setProjectType(projectTypeMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", ""));
 		}
 		
@@ -235,12 +235,12 @@ public class ShftzClient extends AbstractClient{
 		Matcher descriptionMatcher = descriptionPattern.matcher(content);
 		if (descriptionMatcher.find()) {
 			String desc = descriptionMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "");
-			log.info(desc);
+			log.debug(desc);
 			data.setDescription(desc);
 		}
 		Matcher projectInvironmentMatcher = projectInvironmentPattern.matcher(content);
 		if (projectInvironmentMatcher.find()) {
-			log.info(projectInvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			log.debug(projectInvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 			data.setProjectInvironment(projectInvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		

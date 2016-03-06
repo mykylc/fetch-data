@@ -48,7 +48,7 @@ public class TurnerbutlerServicesClient extends TurnerbutlerClient{
 			while (page.hasNextPage()) {
 				semp.acquire();
 				int next = page.getNextPage();
-				final int nextPage = next - 1;
+				final int nextPage = next;
 				page.setCurrentPage(next);
 				FetchDataThreadPool.exec.execute(new Runnable() {
 					@Override
@@ -80,9 +80,5 @@ public class TurnerbutlerServicesClient extends TurnerbutlerClient{
 		return "Services and Properties";
 	}
 
-	@Override
-	public String getCountry() {
-		return null;
-	}
 	
 }

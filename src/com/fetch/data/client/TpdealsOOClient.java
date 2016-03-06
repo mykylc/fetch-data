@@ -46,7 +46,7 @@ public class TpdealsOOClient extends TpdealsClient{
 			while (page.hasNextPage()) {
 				semp.acquire();
 				int next = page.getNextPage();
-				final int nextPage = next - 1;
+				final int nextPage = next;
 				page.setCurrentPage(next);
 				FetchDataThreadPool.exec.execute(new Runnable() {
 					@Override

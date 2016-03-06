@@ -23,7 +23,7 @@ public class RztongClient extends AbstractClient{
 	
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
-	final Semaphore semp = new Semaphore(20);
+	final Semaphore semp = new Semaphore(50);
 	
 	private final static String domain = "http://www.rztong.com.cn";
 	private final static String webSite = "/xm/index_";
@@ -38,7 +38,7 @@ public class RztongClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     // 提取URL列表的正则表达式
     private static final Pattern urlListPattern = Pattern.compile(
-    		"<td colspan=2>\\s+<a href=\"(.*?)\" target=\"_blank\"\\s+title=\".*?\">.*?</a>\\s+</td>", 
+    		"<td colspan=2>\\s+<a href=\"(.*?)\" target=\"_blank\".*?title=\".*?\">.*?</a>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取name值
@@ -58,11 +58,18 @@ public class RztongClient extends AbstractClient{
     private static final Pattern statusPattern = Pattern.compile(
     		"<td width=\"9%\" align=\"right\"><strong>现处阶段：</strong></td>\\s+<td width=\"20%\" align=\"left\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern statusPattern2 = Pattern.compile(
+    		"<td height=\"6\" align=\"right\"><strong>现处阶段：</strong></td>\\s+<td align=\"left\">(.*?)</td>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取patent
     private static final Pattern patentPattern = Pattern.compile(
     		"<td height=\"14\" align=\"right\"><strong>获专利情况：</strong></td>\\s+<td align=\"left\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern patentPattern2 = Pattern.compile(
+    		"<td width=\"11%\" align=\"right\"><strong>获专利情况：</strong></td>\\s+<td width=\"22%\" align=\"left\">(.*?)</td>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
     
     //提取location值
     private static final Pattern locationPattern = Pattern.compile(
@@ -70,6 +77,9 @@ public class RztongClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern locationPattern2 = Pattern.compile(
     		"<td width=\"79\"  align=\"right\"><strong>项目所在地：</strong></td>\\s+<td  width=\"140\" align=\"left\">(.*?)</td>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern locationPattern3 = Pattern.compile(
+    		"<td align=right>项目所在地：</td>\\s+<td>(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取price值
@@ -121,7 +131,7 @@ public class RztongClient extends AbstractClient{
 				});
 			}
 			while (true) {
-				if (semp.availablePermits()==20) {
+				if (semp.availablePermits()==50) {
 					break;
 				}
 			}
@@ -147,7 +157,7 @@ public class RztongClient extends AbstractClient{
 			if (result==null) {
 				return;
 			}
-			//log.debug(result);
+			log.debug(result);
 			Matcher urlListmatcher = urlListPattern.matcher(result);
             while (urlListmatcher.find()) {
             	String hrefUrl = urlListmatcher.group(1);
@@ -170,6 +180,9 @@ public class RztongClient extends AbstractClient{
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
 		log.debug(content);
 		FetchData data = new FetchData();
+		if (pageUrl.equals("http://www.rztong.com.cn/xm/xm48803.htm")) {
+			return null;
+		}
 		data.setPageUrl(pageUrl);
 		data.setCountry("China");
 		Matcher nameMatcher = namePattern.matcher(content);
@@ -184,7 +197,7 @@ public class RztongClient extends AbstractClient{
 		}
 		Matcher industryMatcher = industryPattern.matcher(content);
 		if (industryMatcher.find()) {
-			log.info(industryMatcher.group(1).replaceAll("\\s+", ""));
+			log.debug(industryMatcher.group(1).replaceAll("\\s+", ""));
 			data.setIndustry(industryMatcher.group(1).replaceAll("\\s+", ""));
 		}
 		Matcher statusMatcher = statusPattern.matcher(content);
@@ -192,20 +205,35 @@ public class RztongClient extends AbstractClient{
 			log.debug(statusMatcher.group(1).replaceAll("\\s+", ""));
 			data.setStatus(statusMatcher.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher statusMatcher2 = statusPattern2.matcher(content);
+		if (statusMatcher2.find()) {
+			log.debug(statusMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setStatus(statusMatcher2.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher patentMatcher = patentPattern.matcher(content);
 		if (patentMatcher.find()) {
 			log.debug(patentMatcher.group(1).replaceAll("\\s+", ""));
 			data.setPatent(patentMatcher.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher patentMatcher2 = patentPattern2.matcher(content);
+		if (patentMatcher2.find()) {
+			log.debug(patentMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setPatent(patentMatcher2.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher locationMatcher = locationPattern.matcher(content);
 		if (locationMatcher.find()) {
-			log.info(locationMatcher.group(1).replaceAll("\\s+", ""));
+			log.debug(locationMatcher.group(1).replaceAll("\\s+", ""));
 			data.setLocation(locationMatcher.group(1).replaceAll("\\s+", ""));
 		}
 		Matcher locationMatcher2 = locationPattern2.matcher(content);
 		if (locationMatcher2.find()) {
-			log.info(locationMatcher2.group(1).replaceAll("\\s+", ""));
+			log.debug(locationMatcher2.group(1).replaceAll("\\s+", ""));
 			data.setLocation(locationMatcher2.group(1).replaceAll("\\s+", ""));
+		}
+		Matcher locationMatcher3 = locationPattern3.matcher(content);
+		if (locationMatcher3.find()) {
+			log.debug(locationMatcher3.group(1).replaceAll("\\s+", ""));
+			data.setLocation(locationMatcher3.group(1).replaceAll("\\s+", ""));
 		}
 		Matcher priceMatcher = pricePattern.matcher(content);
 		if (priceMatcher.find()) {
@@ -229,8 +257,10 @@ public class RztongClient extends AbstractClient{
 			String desc1 = descriptionMatcher.group(1).replaceAll("\\s+", "");
 			String desc2 = descriptionMatcher.group(2).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "");
 			String desc3 = descriptionMatcher.group(3).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "");
-			log.info(desc1+desc2+desc3);
-			data.setDescription(desc1+desc2+desc3);
+			String desc = desc1+desc2+desc3;
+			//log.info(desc);
+			desc = desc.replaceAll("[^\\u0000-\\uFFFF]", "");//过滤掉4个字节的UTF-8
+			data.setDescription(desc);
 		}
 		return data;
 	}

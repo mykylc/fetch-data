@@ -150,6 +150,8 @@ public class FetchData {
 	
 	private String expectedInvestmentArea;
 	
+	private String projectInvironment;
+	
 	private String turnover;
 	
 	private String netProfit;
@@ -165,8 +167,6 @@ public class FetchData {
 	private String advantage;
 	
 	private String financialInformation;
-	
-	private String projectInvironment;
 	
 	public String getName() {
 		if (name == null) {
@@ -605,6 +605,14 @@ public class FetchData {
 		this.expectedInvestmentArea = expectedInvestmentArea;
 	}
 
+	public String getProjectInvironment() {
+		return projectInvironment;
+	}
+
+	public void setProjectInvironment(String projectInvironment) {
+		this.projectInvironment = projectInvironment;
+	}
+	
 	public String getTurnover() {
 		return turnover;
 	}
@@ -669,13 +677,6 @@ public class FetchData {
 		this.financialInformation = financialInformation;
 	}
 
-	public String getProjectInvironment() {
-		return projectInvironment;
-	}
-
-	public void setProjectInvironment(String projectInvironment) {
-		this.projectInvironment = projectInvironment;
-	}
 
 	@Override
 	public String toString() {

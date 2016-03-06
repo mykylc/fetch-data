@@ -37,7 +37,7 @@ public abstract class TpdealsClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取turnover值
     private static final Pattern turnoverPattern = Pattern.compile(
-    		"<h5><span class=\"blue bold\">Turnover:</span> &#163;10.0m</h5>",
+    		"<h5><span class=\"blue bold\">Turnover:</span>(.*?)</h5>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取description
     private static final Pattern descriptionPattern = Pattern.compile(
@@ -78,9 +78,10 @@ public abstract class TpdealsClient extends AbstractClient{
     
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
-		log.info(content);
+		log.debug(content);
 		FetchData data = new FetchData();
 		data.setPageUrl(pageUrl);
+		data.setCountry("UK");
 		Matcher nameMatcher = namePattern.matcher(content);
 		if (nameMatcher.find()) {
 			log.debug(nameMatcher.group(1));

@@ -15,8 +15,10 @@ public class FetchDataDao {
 			+ "status, agency, source_of_funding, total_cost, cost, investment_mode, project_advantage, validity_period, project_properties, "
 			+ "project_capitals, expected_annual_revenue, expected_payback_period, desc_of_environment_protection, desc_of_investor_conditions, "
 			+ "listing_time, expected_industry, expected_capital, expected_industry_caracteristics, expected_location, expected_financial_ratios, "
-			+ "business_description, financial_ratios, company_properites, financing_mode, page_url, inserting_time) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+			+ "business_description, financial_ratios, company_properites, financing_mode, patent, expected_investment_area, project_invironment,"
+			+ "turnover, net_profit, gross_profit, EBITDA, asset, potential, advantage, financial_information, page_url, inserting_time) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?,"
 			+ "NOW());";
 	
 	public void insert(FetchData fetchData) throws Exception{

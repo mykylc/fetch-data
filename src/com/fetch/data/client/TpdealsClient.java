@@ -104,13 +104,13 @@ public abstract class TpdealsClient extends AbstractClient{
 		}
 		Matcher turnoverMatcher = turnoverPattern.matcher(content);
 		if (turnoverMatcher.find()) {
-			log.debug(turnoverMatcher.group(1).replaceAll("&#163;", ""));
-			data.setTurnover(turnoverMatcher.group(1).replaceAll("&#163;", ""));
+			log.debug(turnoverMatcher.group(1).replaceAll("&#163;", "£"));
+			data.setTurnover(turnoverMatcher.group(1).replaceAll("&#163;", "£"));
 		}
 		Matcher descriptionMatcher = descriptionPattern.matcher(content);
 		if (descriptionMatcher.find()) {
-			log.debug(descriptionMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setDescription(descriptionMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			log.debug(descriptionMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setDescription(descriptionMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		
 		return data;

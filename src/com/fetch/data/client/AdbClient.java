@@ -59,8 +59,15 @@ public class AdbClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取source of funding值
     private static final Pattern sourceOfFundingPattern = Pattern.compile(
-    		"<tr><td>Technical Assistance Special Fund</td><td align=\"right\">(.*?)</td></tr>",
+    		"<tr><td>(Technical Assistance Special Fund|Asia Pacific Disaster Response Fund|Ordinary capital resources|Gender and Development Cooperation Fund|"
+    		+ "Global Environment Facility|Investment Climate Facilitation Fund under RCIFPF|Japan Fund for Poverty Reduction|Asian Development Fund"
+    		+ ")</td><td align=\"right\">(.*?)</td></tr>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+  //提取source of funding值
+    private static final Pattern sourceOfFundingPattern2 = Pattern.compile(
+    		"<tr><td>Source of Funding / Amount</td><td><table><tr><th colspan=\"2\">.*?</th></tr><tr><td>.*?</td><td align=\"right\">(.*?)</td></tr>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
     
     //提取Approval date
     private static final Pattern approvalDatePattern = Pattern.compile(
@@ -205,7 +212,7 @@ public class AdbClient extends AbstractClient{
 			data.setProjectType(projectTypeMatcher.group(1));
 		}
 		
-		Matcher sourceOfFundingMatcher = sourceOfFundingPattern.matcher(content);
+		Matcher sourceOfFundingMatcher = sourceOfFundingPattern2.matcher(content);
 		if (sourceOfFundingMatcher.find()) {
 			log.debug(sourceOfFundingMatcher.group(1));
 			data.setSourceOfFunding(sourceOfFundingMatcher.group(1));

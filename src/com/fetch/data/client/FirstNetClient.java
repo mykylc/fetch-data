@@ -161,19 +161,19 @@ public class FirstNetClient extends AbstractClient{
 	}
     
 	private String getTypeName(String projectType){
-		if(projectType=="1"){
+		if("1".equals(projectType)){
 			return "软件及信息服务";
-		}else if(projectType =="2"){
+		}else if("2".equals(projectType)){
 			return "集成电路";
-		}else if(projectType =="3"){
+		}else if("3".equals(projectType)){
 			return "电子信息";
-		}else if(projectType =="4"){
+		}else if("4".equals(projectType)){
 			return "高技术服务";
-		}else if(projectType =="5"){
+		}else if("5".equals(projectType)){
 			return "先进制造";
-		}else if(projectType =="6"){
+		}else if("6".equals(projectType)){
 			return "生物医疗及环保";
-		}else if(projectType =="8"){
+		}else if("8".equals(projectType)){
 			return "新材料";
 		}else{
 			return "其它";
@@ -181,11 +181,11 @@ public class FirstNetClient extends AbstractClient{
 	}
 	
 	private String getProjectPhase(String projectPhase){
-		if(projectPhase=="1"){
+		if("1".equals(projectPhase)){
 			return "前期研发";
-		}else if(projectPhase=="2"){
+		}else if("2".equals(projectPhase)){
 			return "试生产和市场推广";
-		}else if(projectPhase=="3"){
+		}else if("3".equals(projectPhase)){
 			return "量产和稳定销售";
 		}else{
 			return "";

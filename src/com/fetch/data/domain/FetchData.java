@@ -150,7 +150,7 @@ public class FetchData {
 	
 	private String expectedInvestmentArea;
 	
-	private String projectInvironment;
+	private String projectEnvironment;
 	
 	private String turnover;
 	
@@ -605,12 +605,12 @@ public class FetchData {
 		this.expectedInvestmentArea = expectedInvestmentArea;
 	}
 
-	public String getProjectInvironment() {
-		return projectInvironment;
+	public String getProjectEnvironment() {
+		return projectEnvironment;
 	}
 
-	public void setProjectInvironment(String projectInvironment) {
-		this.projectInvironment = projectInvironment;
+	public void setProjectEnvironment(String projectEnvironment) {
+		this.projectEnvironment = projectEnvironment;
 	}
 	
 	public String getTurnover() {

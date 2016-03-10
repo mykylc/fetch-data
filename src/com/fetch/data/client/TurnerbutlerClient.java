@@ -52,7 +52,7 @@ public abstract class TurnerbutlerClient extends AbstractClient{
     
     //提取description
     private static final Pattern descriptionPattern = Pattern.compile(
-    		"<strong>Business Profile</strong> </span>(.*?)<h4><span style=\"color: #125a96;\">", 
+    		"<strong>Business Profile.*?</span>(.*?)<h4>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
     private static final Pattern descriptionPattern2 = Pattern.compile(
     		"<strong>Business Profile</strong> </span>(.*?)<h4 style=\"text-align: justify;\">", 
@@ -60,47 +60,53 @@ public abstract class TurnerbutlerClient extends AbstractClient{
     
     //提取potential
     private static final Pattern potentialPattern = Pattern.compile(
-    		"<h4><span style=\"color: #125a96;\"><strong>Key Considerations</strong></span></h4>(.*?)<h4><span style=\"color: #125a96;\">", 
+    		"Key Considerations.*?</h4>(.*?)<h4", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);   
-    private static final Pattern potentialPattern2 = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"> <strong>Key Considerations</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern potentialPattern2 = Pattern.compile(
+//    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"> <strong>Key Considerations</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     
     //提取advantage
     private static final Pattern advantagePattern = Pattern.compile(
-    		"<h4><span style=\"color: #125a96;\"><strong>Key Strengths:</strong><strong>&nbsp;</strong></span></h4>(.*?)<h4><span style=\"color: #125a96;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);  
-    private static final Pattern advantagePattern2 = Pattern.compile(
-    		"<span style=\"color: #125a96;\"> <strong>Key strengths:</strong> </span></p>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);  
-    private static final Pattern advantagePattern3 = Pattern.compile(
-    		"<span style=\"color: #125a96;\"><strong>Key Strengths:</strong> </span></p>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
-    private static final Pattern advantagePattern4 = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
+    		"(Key strengths:|Key Strengths:).*?</p>(.*?)<h4", 
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern advantagePattern1 = Pattern.compile(
+    		"(Key strengths:|Key Strengths:).*?</h4>(.*?)<h4", 
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern1 = Pattern.compile(
+//    		"<h4><span style=\"color: #125a96;\"><strong>Key Strengths:</strong><strong>&nbsp;</strong></span></h4>(.*?)<h4><span style=\"color: #125a96;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);  
+//    private static final Pattern advantagePattern2 = Pattern.compile(
+//    		"<span style=\"color: #125a96;\"> <strong>Key strengths:</strong> </span></p>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);  
+//    private static final Pattern advantagePattern3 = Pattern.compile(
+//    		"<span style=\"color: #125a96;\"><strong>Key Strengths:</strong> </span></p>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
+//    private static final Pattern advantagePattern4 = Pattern.compile(
+//    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
     private static final Pattern advantagePattern5 = Pattern.compile(
-    		"<p style=\"text-align: justify;\"><strong>Key strengths:</strong></p>(.*?)<p><span style=\"color: #125a96;\"><strong>Key opportunities:</strong>", 
+    		"(Key strengths|Key Strengths):.*?</p>(.*?)<p><span style=\"color: #125a96;\">\\s+<strong>Key (opportunities|Opportunities):</strong>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
-    private static final Pattern advantagePattern6 = Pattern.compile(
-    		"<span style=\"color: #125a96;\">Key Strengths:</span></strong></h4>(.*?)<h4><span style=\"color: #125a96;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
-    private static final Pattern advantagePattern7 = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"> <strong> Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern advantagePattern8 = Pattern.compile(
-    		"<strong>Key Strengths:</strong></span></p>(.*?)<p><span style=\"color: #125a96;\"> <strong>Key Opportunities:</strong>", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern advantagePattern9 = Pattern.compile(
-    		"<strong>Key Strengths:</strong></span></p>(.*?)<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Growth and Expansion</strong>", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern advantagePattern10 = Pattern.compile(
-    		"<strong>Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern advantagePattern11 = Pattern.compile(
-    		"<strong>Key strengths:</strong> </span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern6 = Pattern.compile(
+//    		"<span style=\"color: #125a96;\">Key Strengths:</span></strong></h4>(.*?)<h4><span style=\"color: #125a96;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL); 
+//    private static final Pattern advantagePattern7 = Pattern.compile(
+//    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"> <strong> Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern8 = Pattern.compile(
+//    		"<strong>Key Strengths:</strong></span></p>(.*?)<p><span style=\"color: #125a96;\"> <strong>Key Opportunities:</strong>", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern9 = Pattern.compile(
+//    		"<strong>Key Strengths:</strong></span></p>(.*?)<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Growth and Expansion</strong>", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern10 = Pattern.compile(
+//    		"<strong>Key Strengths:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+//    private static final Pattern advantagePattern11 = Pattern.compile(
+//    		"<strong>Key strengths:</strong> </span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+//    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取financialInformation
     private static final Pattern financialInformationPattern = Pattern.compile(
@@ -151,6 +157,30 @@ public abstract class TurnerbutlerClient extends AbstractClient{
 		return null;
 	} 
     
+	/**
+	 * 获取文章内容
+	 * @param url
+	 * @return FetchData
+	 * @throws Exception
+	 */
+	@Override
+	public FetchData getContent(String url, String charset) throws Exception{
+		try {
+			if (url.indexOf("http://www.turnerbutler.co.uk/memo.php?id=IK272")!=-1) {
+				url = "http://www.turnerbutler.co.uk/memo.php?id=IK272";
+			}
+			HttpUtils httpUtils = new HttpUtils(url, charset);
+			String content = httpUtils.execute();
+			if (content!=null) {
+				return parseObject(content, url);
+			}
+			return null;
+		} catch (Exception e) {
+			log.error(String.format("[AbstractClient.getContent] url=%s; 获取文章内容报错：%s", url, e.getMessage()), e);
+			throw e;
+		}
+	}
+	
 	@Override
 	public FetchData parseObject(String content, String pageUrl) throws Exception {
 		log.debug(content);
@@ -211,71 +241,81 @@ public abstract class TurnerbutlerClient extends AbstractClient{
 		}
 		Matcher potentialMatcher = potentialPattern.matcher(content);
 		if (potentialMatcher.find()) {
-			log.debug(potentialMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setPotential(potentialMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-		}
-		Matcher potentialMatcher2 = potentialPattern2.matcher(content);
-		if (potentialMatcher2.find()) {
-			log.debug(potentialMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
+			log.debug(potentialMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
 					.replaceAll("&rsquo;", "’").replaceAll("&bull;", "•").replaceAll("&pound;", "£"));
-			data.setPotential(potentialMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
+			data.setPotential(potentialMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
 					.replaceAll("&rsquo;", "’").replaceAll("&bull;", "•").replaceAll("&pound;", "£"));
 		}
+//		Matcher potentialMatcher2 = potentialPattern2.matcher(content);
+//		if (potentialMatcher2.find()) {
+//			log.debug(potentialMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
+//					.replaceAll("&rsquo;", "’").replaceAll("&bull;", "•").replaceAll("&pound;", "£"));
+//			data.setPotential(potentialMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
+//					.replaceAll("&rsquo;", "’").replaceAll("&bull;", "•").replaceAll("&pound;", "£"));
+//		}
+		
+		
 		Matcher advantageMatcher = advantagePattern.matcher(content);
 		if (advantageMatcher.find()) {
-			log.debug(advantageMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setAdvantage(advantageMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			log.debug(advantageMatcher.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+			data.setAdvantage(advantageMatcher.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
 		}
-		Matcher advantageMatcher2 = advantagePattern2.matcher(content);
-		if (advantageMatcher2.find()) {
-			log.debug(advantageMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+		
+		Matcher advantageMatcher1 = advantagePattern1.matcher(content);
+		if (advantageMatcher1.find()) {
+			log.debug(advantageMatcher1.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+			data.setAdvantage(advantageMatcher1.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
 		}
-		Matcher advantageMatcher3 = advantagePattern3.matcher(content);
-		if (advantageMatcher3.find()) {
-			log.debug(advantageMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher4 = advantagePattern4.matcher(content);
-		if (advantageMatcher4.find()) {
-			log.debug(advantageMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
+//		Matcher advantageMatcher2 = advantagePattern2.matcher(content);
+//		if (advantageMatcher2.find()) {
+//			log.debug(advantageMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher3 = advantagePattern3.matcher(content);
+//		if (advantageMatcher3.find()) {
+//			log.debug(advantageMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher4 = advantagePattern4.matcher(content);
+//		if (advantageMatcher4.find()) {
+//			log.debug(advantageMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
 		Matcher advantageMatcher5 = advantagePattern5.matcher(content);
 		if (advantageMatcher5.find()) {
-			log.debug(advantageMatcher5.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher5.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+			log.debug(advantageMatcher5.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+			data.setAdvantage(advantageMatcher5.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
 		}
-		Matcher advantageMatcher6 = advantagePattern6.matcher(content);
-		if (advantageMatcher6.find()) {
-			log.debug(advantageMatcher6.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher6.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher7 = advantagePattern7.matcher(content);
-		if (advantageMatcher7.find()) {
-			log.debug(advantageMatcher7.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher7.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher8 = advantagePattern8.matcher(content);
-		if (advantageMatcher8.find()) {
-			log.debug(advantageMatcher8.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher8.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher9 = advantagePattern9.matcher(content);
-		if (advantageMatcher9.find()) {
-			log.debug(advantageMatcher9.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher9.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher10 = advantagePattern10.matcher(content);
-		if (advantageMatcher10.find()) {
-			log.debug(advantageMatcher10.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher10.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
-		Matcher advantageMatcher11 = advantagePattern11.matcher(content);
-		if (advantageMatcher11.find()) {
-			log.debug(advantageMatcher11.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-			data.setAdvantage(advantageMatcher11.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
-		}
+//		Matcher advantageMatcher6 = advantagePattern6.matcher(content);
+//		if (advantageMatcher6.find()) {
+//			log.debug(advantageMatcher6.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher6.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher7 = advantagePattern7.matcher(content);
+//		if (advantageMatcher7.find()) {
+//			log.debug(advantageMatcher7.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher7.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher8 = advantagePattern8.matcher(content);
+//		if (advantageMatcher8.find()) {
+//			log.debug(advantageMatcher8.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher8.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher9 = advantagePattern9.matcher(content);
+//		if (advantageMatcher9.find()) {
+//			log.debug(advantageMatcher9.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher9.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher10 = advantagePattern10.matcher(content);
+//		if (advantageMatcher10.find()) {
+//			log.debug(advantageMatcher10.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher10.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
+//		Matcher advantageMatcher11 = advantagePattern11.matcher(content);
+//		if (advantageMatcher11.find()) {
+//			log.debug(advantageMatcher11.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//			data.setAdvantage(advantageMatcher11.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&bull;", "•").replaceAll("&ndash;", "–"));
+//		}
 		Matcher financialInformationMatcher = financialInformationPattern.matcher(content);
 		if (financialInformationMatcher.find()) {
 			log.debug(financialInformationMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));

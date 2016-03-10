@@ -46,7 +46,7 @@ CREATE TABLE `fetch_data` (
   `financing_mode` varchar(256) DEFAULT NULL,
   `patent` varchar(256) DEFAULT NULL,
   `expected_investment_area` varchar(1024) DEFAULT NULL,
-  `project_invironment` varchar(1024) DEFAULT NULL,
+  `project_environment` varchar(1024) DEFAULT NULL,
   `turnover` varchar(256) DEFAULT NULL,
   `net_profit` varchar(256) DEFAULT NULL,
   `gross_profit` varchar(256) DEFAULT NULL,

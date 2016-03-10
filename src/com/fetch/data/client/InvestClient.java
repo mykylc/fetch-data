@@ -54,30 +54,30 @@ public class InvestClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取expected industry
     private static final Pattern expectedIndustryPattern = Pattern.compile(
-    		"<td style=\"width:177px;\">.*?期望标的公司所属行业</td>\\s+<td style=\"width:391px;\">(.*?)</td>	", 
+    		"<td style=\".*?\">.*?期望标的公司所属行业.*?</td>\\s+<td style=\".*?\">(.*?)</td>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取expectedCapital
     private static final Pattern expectedCapitalPattern = Pattern.compile(
-    		"<td style=\"width:177px;\">				&nbsp; 期望标的资产规模<br />\\s+&nbsp;</td>\\s+<td style=\"width:391px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?期望标的.*?资产规模.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取industryCaracteristics
     private static final Pattern industryCaracteristicsPattern = Pattern.compile(
-    		"<td style=\"width:177px;\">				&nbsp; 期望拟购入标的行业特性</td>\\s+<td style=\"width:391px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?期望拟购入.*?标的行业特性.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取expectedLocation值
     private static final Pattern expectedLocationPattern = Pattern.compile(
-    		"<td style=\"width:177px;\">				&nbsp; 期望地域</td>\\s+<td style=\"width:391px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?期望地域.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取expectedFinancialRatios值
     private static final Pattern expectedFinancialRatiosPattern = Pattern.compile(
-    		"<td style=\"width:177px;height:75px;\">\\s+&nbsp; 期望标的财务经营状况<br />\\s+&nbsp;</td>\\s+<td style=\"width:391px;height:75px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?期望标的财务经营状况.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取investmentMode
     private static final Pattern investmentModePattern = Pattern.compile(
-    		"<td style=\"width:177px;\">\\s+&nbsp; 投资方式</td>\\s+<td style=\"width:391px;\">(.*?)</td>", 
+    		"<td style=\".*?\">.*?投资方式.*?</td>\\s+<td style=\".*?\">(.*?)</td>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     
@@ -91,31 +91,31 @@ public class InvestClient extends AbstractClient{
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取businessDescription
     private static final Pattern businessDescriptionPattern = Pattern.compile(
-    		"<td style=\"width:121px;\">((\\s+主营业务及优势：)|(\\s+主营业务：))</td>\\s+<td style=\"width:448px;\">(.*?)</td>", 
+    		"<td style=\".*?\">((.*?主营业务及优势：)|(.*?主营业务.*?))</td>\\s+<td style=\".*?\">(.*?)</td>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取location值
     private static final Pattern locationPattern = Pattern.compile(
-    		"<td style=\"width:121px;\">\\s+所在地区：</td>\\s+<td style=\"width:448px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?所在地区：</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     //提取description
     private static final Pattern descriptionPattern = Pattern.compile(
-    		"<td style=\"width:121px;\">\\s+企业基本状况</td>\\s+<td style=\"width:448px;\">(.*?)</td>", 
+    		"<td style=\".*?\">.*?企业基本状况.*?</td>\\s+<td style=\".*?\">(.*?)</td>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取financialRatios值
     private static final Pattern financialRatiosPattern = Pattern.compile(
-    		"<td style=\"width:121px;\">\\s+财务经营状况：</td>\\s+<td style=\"width:448px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?财务经营状况.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取company Properites
     private static final Pattern companyProperitesPattern = Pattern.compile(
-    		"<td style=\"width:121px;\">\\s+企业性质</td>\\s+<td style=\"width:448px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?企业性质.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取financingMode
     private static final Pattern financingModePattern = Pattern.compile(
-    		"<td style=\"width:121px;\">\\s+融资方式：</td>\\s+<td style=\"width:448px;\">(.*?)</td>",
+    		"<td style=\".*?\">.*?融资方式.*?</td>\\s+<td style=\".*?\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     @Override
@@ -232,8 +232,8 @@ public class InvestClient extends AbstractClient{
 		
 		Matcher businessDescriptionMatcher = businessDescriptionPattern.matcher(content);
 		if (businessDescriptionMatcher.find()) {
-			log.debug(businessDescriptionMatcher.group(4).replaceAll("&mdash;", "-"));
-			data.setBusinessDescription(businessDescriptionMatcher.group(4).replaceAll("&mdash;", "-"));
+			log.debug(businessDescriptionMatcher.group(4).replaceAll("&mdash;", "-").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setBusinessDescription(businessDescriptionMatcher.group(4).replaceAll("&mdash;", "-").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		Matcher locationMatcher = locationPattern.matcher(content);
 		if (locationMatcher.find()) {

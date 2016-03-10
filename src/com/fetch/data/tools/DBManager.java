@@ -95,7 +95,7 @@ public class DBManager {
 			
 			pst.setString(45, fetchData.getPatent());
 			pst.setString(46, fetchData.getExpectedInvestmentArea());
-			pst.setString(47, fetchData.getProjectInvironment());
+			pst.setString(47, fetchData.getProjectEnvironment());
 			
 			pst.setString(48, fetchData.getTurnover());
 			pst.setString(49, fetchData.getNetProfit());

@@ -45,14 +45,32 @@ public class RztongClient extends AbstractClient{
     private static final Pattern namePattern = Pattern.compile(
     		"<td height=\"39\" colspan=\"2\" align=\"center\"><span class=\"style1\">(.*?)</span></td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern namePattern2 = Pattern.compile(
+    		"<DIV align=center class=xmtitle><b>(.*?)</b></DIV>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
+    private static final Pattern projectTypePattern = Pattern.compile(
+    		"<TD  width=33%>.*?项目类别:(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
+    
     //提取listingTime
     private static final Pattern listingTimePattern = Pattern.compile(
     		"<td colspan=\"3\" align=\"right\"><strong>发布日期:</strong>(.*?)</td></tr>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern listingTimePattern2 = Pattern.compile(
+    		"<TD  width=33%>.*?发布日期：(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
+    
     //提取industry
     private static final Pattern industryPattern = Pattern.compile(
     		"<td width=\".*?\" align=\"right\"><strong>所属行业：</strong></td>\\s+<td width=\".*?\" align=\"left\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern industryPattern2 = Pattern.compile(
+    		"<TD  width=33%>.*?所属行业:(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
     
     //提取status
     private static final Pattern statusPattern = Pattern.compile(
@@ -69,6 +87,9 @@ public class RztongClient extends AbstractClient{
     private static final Pattern patentPattern2 = Pattern.compile(
     		"<td width=\"11%\" align=\"right\"><strong>获专利情况：</strong></td>\\s+<td width=\"22%\" align=\"left\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern patentPattern3 = Pattern.compile(
+    		"<TD width=33%>.*?获专利情况:(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     
     //提取location值
@@ -81,11 +102,23 @@ public class RztongClient extends AbstractClient{
     private static final Pattern locationPattern3 = Pattern.compile(
     		"<td align=right>项目所在地：</td>\\s+<td>(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern locationPattern4 = Pattern.compile(
+    		"<TD width=33%>.*?项目所在地：(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
+    
+    private static final Pattern statusPattern3 = Pattern.compile(
+    		"<TD width=34%>.*?现处阶段：(.*?) </TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取price值
     private static final Pattern pricePattern = Pattern.compile(
     		"<td align=\"right\"><strong>融资额：</strong></td>\\s+<td align=\"left\">(.*?)</td>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern pricePattern2 = Pattern.compile(
+    		"<TD  width=33%>.*?融资额:(.*?)</TD>",
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
     //提取financingMode
     private static final Pattern financingModePattern = Pattern.compile(
     		"<td height=\"14\" align=\"right\"><strong>融资方式：</strong></td>\\s+<td align=\"left\">(.*?)</td>", 
@@ -98,7 +131,11 @@ public class RztongClient extends AbstractClient{
     
     //提取description
     private static final Pattern descriptionPattern = Pattern.compile(
-    		"<h4>(.*?)</h4>(.*?)<div>(.*?)</div>", 
+    		"<h4>(.*?)</h4>(.*?)<div.*?>(.*?)</div>", 
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    
+    private static final Pattern descriptionPattern2 = Pattern.compile(
+    		"<TD vAlign=top  height=300   style=\"word-break:break-all;font-size:14px;\">(.*?)</TD></TR>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     @Override
@@ -184,21 +221,43 @@ public class RztongClient extends AbstractClient{
 			return null;
 		}
 		data.setPageUrl(pageUrl);
-		data.setCountry("China");
+		data.setCountry("中国");
 		Matcher nameMatcher = namePattern.matcher(content);
 		if (nameMatcher.find()) {
 			log.debug(nameMatcher.group(1).replaceAll("\\s+", ""));
 			data.setName(nameMatcher.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher nameMatcher2 = namePattern2.matcher(content);
+		if (nameMatcher2.find()) {
+			log.debug(nameMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setName(nameMatcher2.group(1).replaceAll("\\s+", ""));
+		}
+		Matcher projectTypeMatcher = projectTypePattern.matcher(content);
+		if (projectTypeMatcher.find()) {
+			log.debug(projectTypeMatcher.group(1).replaceAll("\\s+", ""));
+			data.setProjectType(projectTypeMatcher.group(1).replaceAll("\\s+", ""));
+		}
+		
+		
 		Matcher listingTimeMatcher = listingTimePattern.matcher(content);
 		if (listingTimeMatcher.find()) {
 			log.debug(listingTimeMatcher.group(1).replaceAll("\\s+", ""));
 			data.setListingTime(listingTimeMatcher.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher listingTimeMatcher2 = listingTimePattern2.matcher(content);
+		if (listingTimeMatcher2.find()) {
+			log.debug(listingTimeMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setListingTime(listingTimeMatcher2.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher industryMatcher = industryPattern.matcher(content);
 		if (industryMatcher.find()) {
 			log.debug(industryMatcher.group(1).replaceAll("\\s+", ""));
 			data.setIndustry(industryMatcher.group(1).replaceAll("\\s+", ""));
+		}
+		Matcher industryMatcher2 = industryPattern2.matcher(content);
+		if (industryMatcher2.find()) {
+			log.debug(industryMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setIndustry(industryMatcher2.group(1).replaceAll("\\s+", ""));
 		}
 		Matcher statusMatcher = statusPattern.matcher(content);
 		if (statusMatcher.find()) {
@@ -210,6 +269,11 @@ public class RztongClient extends AbstractClient{
 			log.debug(statusMatcher2.group(1).replaceAll("\\s+", ""));
 			data.setStatus(statusMatcher2.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher statusMatcher3 = statusPattern3.matcher(content);
+		if (statusMatcher3.find()) {
+			log.debug(statusMatcher3.group(1).replaceAll("\\s+", ""));
+			data.setStatus(statusMatcher3.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher patentMatcher = patentPattern.matcher(content);
 		if (patentMatcher.find()) {
 			log.debug(patentMatcher.group(1).replaceAll("\\s+", ""));
@@ -219,6 +283,11 @@ public class RztongClient extends AbstractClient{
 		if (patentMatcher2.find()) {
 			log.debug(patentMatcher2.group(1).replaceAll("\\s+", ""));
 			data.setPatent(patentMatcher2.group(1).replaceAll("\\s+", ""));
+		}
+		Matcher patentMatcher3 = patentPattern3.matcher(content);
+		if (patentMatcher3.find()) {
+			log.debug(patentMatcher3.group(1).replaceAll("\\s+", ""));
+			data.setPatent(patentMatcher3.group(1).replaceAll("\\s+", ""));
 		}
 		Matcher locationMatcher = locationPattern.matcher(content);
 		if (locationMatcher.find()) {
@@ -235,12 +304,21 @@ public class RztongClient extends AbstractClient{
 			log.debug(locationMatcher3.group(1).replaceAll("\\s+", ""));
 			data.setLocation(locationMatcher3.group(1).replaceAll("\\s+", ""));
 		}
+		Matcher locationMatcher4 = locationPattern4.matcher(content);
+		if (locationMatcher4.find()) {
+			log.debug(locationMatcher4.group(1).replaceAll("\\s+", ""));
+			data.setLocation(locationMatcher4.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher priceMatcher = pricePattern.matcher(content);
 		if (priceMatcher.find()) {
 			log.debug(priceMatcher.group(1).replaceAll("\\s+", ""));
 			data.setPrice(priceMatcher.group(1).replaceAll("\\s+", ""));
 		}
-		
+		Matcher priceMatcher2 = pricePattern2.matcher(content);
+		if (priceMatcher2.find()) {
+			log.debug(priceMatcher2.group(1).replaceAll("\\s+", ""));
+			data.setPrice(priceMatcher2.group(1).replaceAll("\\s+", ""));
+		}
 		Matcher financingModeMatcher = financingModePattern.matcher(content);
 		if (financingModeMatcher.find()) {
 			log.debug(financingModeMatcher.group(1).replaceAll("\\s+", ""));
@@ -261,6 +339,12 @@ public class RztongClient extends AbstractClient{
 			//log.info(desc);
 			desc = desc.replaceAll("[^\\u0000-\\uFFFF]", "");//过滤掉4个字节的UTF-8
 			data.setDescription(desc);
+		}
+		
+		Matcher descriptionMatcher2 = descriptionPattern2.matcher(content);
+		if (descriptionMatcher2.find()) {
+			log.debug(descriptionMatcher2.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setDescription(descriptionMatcher2.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		return data;
 	}

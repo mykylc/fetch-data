@@ -74,8 +74,8 @@ public class ShftzClient extends AbstractClient{
     		"<div class=\"img_title mt15\">\\s+<strong>项目内容描述</strong></div>\\s+<div class=\"txtContext\">(.*?)</div>", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
-    //提取projectInvironment值
-    private static final Pattern projectInvironmentPattern = Pattern.compile(
+    //提取projectEnvironment值
+    private static final Pattern projectEnvironmentPattern = Pattern.compile(
     		"<div class=\"img_title mt15\">\\s+<strong>投资环境</strong></div>\\s+<div class=\"txtContext\">(.*?)</div>",
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
@@ -238,10 +238,10 @@ public class ShftzClient extends AbstractClient{
 			log.debug(desc);
 			data.setDescription(desc);
 		}
-		Matcher projectInvironmentMatcher = projectInvironmentPattern.matcher(content);
-		if (projectInvironmentMatcher.find()) {
-			log.debug(projectInvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setProjectInvironment(projectInvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+		Matcher projectEnvironmentMatcher = projectEnvironmentPattern.matcher(content);
+		if (projectEnvironmentMatcher.find()) {
+			log.debug(projectEnvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setProjectEnvironment(projectEnvironmentMatcher.group(1).replaceAll("\\s+", "").replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		
 		Matcher descOfInvestorConditionsMatcher = descOfInvestorConditionsPattern.matcher(content);

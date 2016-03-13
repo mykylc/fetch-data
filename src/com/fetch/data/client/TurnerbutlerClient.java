@@ -57,6 +57,9 @@ public abstract class TurnerbutlerClient extends AbstractClient{
     private static final Pattern descriptionPattern2 = Pattern.compile(
     		"<strong>Business Profile</strong> </span>(.*?)<h4 style=\"text-align: justify;\">", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern descriptionPattern3 = Pattern.compile(
+    		"Introduction.*?</h4>(.*?)<h4", 
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     
     //提取potential
     private static final Pattern potentialPattern = Pattern.compile(
@@ -110,20 +113,18 @@ public abstract class TurnerbutlerClient extends AbstractClient{
     
     //提取financialInformation
     private static final Pattern financialInformationPattern = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Financial profile:</strong></span></h4>(.*?)<h4 style=\"text-align: justify;\">", 
+    		"(Financial profile|Financial Information):.*?</p>(.*?)<p>", 
+    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern financialInformationPattern1 = Pattern.compile(
+    		"(Financial profile|Financial Information):.*?</p>(.*?)<h4", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern financialInformationPattern2 = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\">Financial profile:</span></h4>(.*?)<span style=\"color: #125a96;\"> <strong>Turner Butler Disclosure Statement</strong>", 
+    		"(Financial profile|Financial Information):.*?</h4>(.*?)<span", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     private static final Pattern financialInformationPattern3 = Pattern.compile(
-    		"<h4 style=\"text-align: justify;\"><strong><span style=\"color: #125a96;\">Financial profile:</span></strong></h4>(.*?)<h4 style=\"text-align: justify;\"><span style=\"color: #125a96;\"><strong>Asking Price:</strong>", 
+    		"(Financial profile|Financial Information):.*?</h4>(.*?)<h4", 
     		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern financialInformationPattern4 = Pattern.compile(
-    		"<span style=\"color: #125a96;\"><strong>Financial profile:</strong></span></p>(.*?)<h4 style=\"text-align: justify;\">", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    private static final Pattern financialInformationPattern5 = Pattern.compile(
-    		"<strong><span style=\"color: #125a96;\">Financial profile:</span></strong></p>(.*?)<p><span style=\"color: #125a96;\"> <strong>Asking Price :</strong>", 
-    		Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+   
     
     
     /**
@@ -239,6 +240,14 @@ public abstract class TurnerbutlerClient extends AbstractClient{
 			log.debug(descriptionMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 			data.setDescription(descriptionMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
+		if (data.getDescription()==null || "".equals(data.getDescription()) || data.getDescription().length()==0) {
+			Matcher descriptionMatcher3 = descriptionPattern3.matcher(content);
+			if (descriptionMatcher3.find()) {
+				log.debug(descriptionMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+				data.setDescription(descriptionMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			}
+		}
+		
 		Matcher potentialMatcher = potentialPattern.matcher(content);
 		if (potentialMatcher.find()) {
 			log.debug(potentialMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "")
@@ -318,29 +327,25 @@ public abstract class TurnerbutlerClient extends AbstractClient{
 //		}
 		Matcher financialInformationMatcher = financialInformationPattern.matcher(content);
 		if (financialInformationMatcher.find()) {
-			log.debug(financialInformationMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setFinancialInformation(financialInformationMatcher.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			log.debug(financialInformationMatcher.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setFinancialInformation(financialInformationMatcher.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+		}
+		Matcher financialInformationMatcher1 = financialInformationPattern1.matcher(content);
+		if (financialInformationMatcher1.find()) {
+			log.debug(financialInformationMatcher1.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setFinancialInformation(financialInformationMatcher1.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
 		Matcher financialInformationMatcher2 = financialInformationPattern2.matcher(content);
 		if (financialInformationMatcher2.find()) {
-			log.debug(financialInformationMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&pound;", "£"));
-			data.setFinancialInformation(financialInformationMatcher2.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&pound;", "£"));
+			log.debug(financialInformationMatcher2.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&pound;", "£"));
+			data.setFinancialInformation(financialInformationMatcher2.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", "").replaceAll("&pound;", "£"));
 		}
 		Matcher financialInformationMatcher3 = financialInformationPattern3.matcher(content);
 		if (financialInformationMatcher3.find()) {
-			log.debug(financialInformationMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setFinancialInformation(financialInformationMatcher3.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			log.debug(financialInformationMatcher3.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
+			data.setFinancialInformation(financialInformationMatcher3.group(2).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
 		}
-		Matcher financialInformationMatcher4 = financialInformationPattern4.matcher(content);
-		if (financialInformationMatcher4.find()) {
-			log.debug(financialInformationMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setFinancialInformation(financialInformationMatcher4.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-		}
-		Matcher financialInformationMatcher5 = financialInformationPattern5.matcher(content);
-		if (financialInformationMatcher5.find()) {
-			log.debug(financialInformationMatcher5.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-			data.setFinancialInformation(financialInformationMatcher5.group(1).replaceAll("&nbsp;", "").replaceAll("<[^>]+>", ""));
-		}
+		
 		return data;
 	}
 	

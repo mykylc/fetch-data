@@ -58,5 +58,5 @@ CREATE TABLE `fetch_data` (
   `page_url` varchar(512) DEFAULT NULL,
   `inserting_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=139412 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

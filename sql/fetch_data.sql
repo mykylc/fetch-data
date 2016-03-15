@@ -7,7 +7,7 @@ CREATE TABLE `fetch_data` (
   `location` varchar(128) DEFAULT NULL COMMENT '区域/地',
   `price` varchar(128) DEFAULT NULL COMMENT '价格/挂牌价格/起始价',
   `industry` varchar(2000) DEFAULT NULL COMMENT '行业',
-  `description` text,
+  `description` mediumtext,
   `project_type` varchar(256) DEFAULT NULL COMMENT '交易方式/转让方式/融资方式',
   `company_type` varchar(256) DEFAULT NULL COMMENT '企业类型',
   `shares_percentage` varchar(128) DEFAULT NULL COMMENT '股权比例',

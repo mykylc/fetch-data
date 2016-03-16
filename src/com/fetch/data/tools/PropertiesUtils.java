@@ -18,7 +18,7 @@ public class PropertiesUtils {
 	private PropertiesUtils() {}
 	public static Properties getProperties(){
 		if (properties == null) {
-			File file = new File(System.getProperty("user.dir") + fileConfig);  
+			File file = new File(System.getProperty("user.dir") + File.separator + fileConfig);  
 			log.info(file.getAbsolutePath());
 	        InputStream is = null;	
 	        properties = new Properties();  

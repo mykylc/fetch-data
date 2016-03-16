@@ -21,6 +21,12 @@ public class DBManager {
 	public static final String name = "com.mysql.jdbc.Driver";
 	public static final String user = "root";
 	public static final String password = "123456";
+	
+	public static final String driverClassKey = "jdbc.driverClass";
+	public static final String jdbcUrlKey = "jdbc.jdbcUrl";
+	public static final String usernameKey = "jdbc.username";
+	public static final String passwordKey = "jdbc.password";
+	
 
 	private static Map<String, String> pageUrlMap = new HashMap<String, String>();
 	
@@ -34,8 +40,11 @@ public class DBManager {
 	private DBManager() {}
 	public static Connection getInstance() throws ClassNotFoundException, SQLException{
 		if (conn == null) {
-			Class.forName(name);//指定连接类型
-			conn = DriverManager.getConnection(url, user, password);//获取连接
+			Class.forName(PropertiesUtils.getProperty(driverClassKey, name));//指定连接类型
+			String dbUrl = PropertiesUtils.getProperty(jdbcUrlKey, url);
+			String userName = PropertiesUtils.getProperty(usernameKey, user);
+			String pwd = PropertiesUtils.getProperty(passwordKey, password);
+			conn = DriverManager.getConnection(dbUrl, userName, pwd);//获取连接
 	    }
 		return conn;
 	}

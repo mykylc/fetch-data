@@ -18,8 +18,8 @@ public class PropertiesUtils {
 	private PropertiesUtils() {}
 	public static Properties getProperties(){
 		if (properties == null) {
-			File file = new File(System.getProperty("user.dir"));  
-	    	file = new File(file.getParent()+ File.separator+ fileConfig);
+			File file = new File(System.getProperty("user.dir") + fileConfig);  
+			log.info(file.getAbsolutePath());
 	        InputStream is = null;	
 	        properties = new Properties();  
 	        if (file.exists() && !file.isDirectory()) {  

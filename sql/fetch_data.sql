@@ -57,6 +57,7 @@ CREATE TABLE `fetch_data` (
   `financial_information` text,
   `page_url` varchar(512) DEFAULT NULL,
   `inserting_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `hash_code` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash_code` (`hash_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

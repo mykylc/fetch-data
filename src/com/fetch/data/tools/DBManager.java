@@ -116,6 +116,7 @@ public class DBManager {
 			pst.setString(55, fetchData.getFinancialInformation());
 			
 			pst.setString(56, fetchData.getPageUrl());
+			pst.setString(58, HashUtils.getHash(fetchData.getPageUrl()));
 			pst.executeUpdate();
 			log.info(String.format("新增数据，网站：%s", fetchData.getPageUrl()));
 		} catch (Exception e) {

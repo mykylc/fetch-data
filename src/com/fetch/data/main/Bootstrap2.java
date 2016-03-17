@@ -66,6 +66,7 @@ public class Bootstrap2 {
 				break;
 			}
 		}
+		log.info("All web site fetch data end!");
 		DBManager.close();
 		FetchDataThreadPool.exec.shutdown();
 		FetchDataMainThreadPool.exec.shutdown();
@@ -86,6 +87,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startAfdb线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("afdb web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -107,6 +109,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startAdb线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("adb web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -128,6 +131,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startEib线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("eib web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -149,6 +153,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startIic线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Iic web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -172,6 +177,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startFdi线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Fdi web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -193,6 +199,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startInvest线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Invest web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -214,6 +221,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startRztong线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Rztong web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -235,6 +243,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startShftz线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Shftz web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -256,6 +265,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startFirstNet线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("FirstNet web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -277,6 +287,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler1线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler1 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -297,6 +308,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler2线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler2 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -317,6 +329,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler3线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler3 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -337,6 +350,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler4线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler4 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -357,6 +371,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler5线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler5 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -378,6 +393,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler6线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler6 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -398,6 +414,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTurnerbutler7线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Turnerbutler7 web site fetch data end!");
 						semp.release();
 					}
 				}
@@ -424,6 +441,7 @@ public class Bootstrap2 {
 					} catch (Exception e) {
 						log.error("启动startTpdeals线程报错："+e.getMessage(), e);
 					} finally {
+						log.info("Tpdeals web site fetch data end!");
 						semp.release();
 					}
 				}

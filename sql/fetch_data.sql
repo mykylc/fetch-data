@@ -1,6 +1,6 @@
 CREATE TABLE `fetch_data` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) DEFAULT NULL COMMENT '标的名称/公司名称',
+  `name` varchar(512) DEFAULT NULL COMMENT '标的名称/公司名称',
   `country` varchar(128) DEFAULT NULL COMMENT '国家',
   `state` varchar(128) DEFAULT NULL COMMENT '省/州',
   `city` varchar(128) DEFAULT NULL COMMENT '市',

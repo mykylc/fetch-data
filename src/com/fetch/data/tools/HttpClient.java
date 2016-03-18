@@ -121,7 +121,7 @@ public class HttpClient {
 		int rescode = client.executeMethod(method);
 		if (rescode != HttpStatus.SC_OK) {
 			//log.error(String.format("返回code：%s,responseBody：%s", rescode, method.getResponseBodyAsString()));
-			log.error(String.format("返回code：%s", rescode));
+			log.error(String.format("return code: %s", rescode));
 			throw new Exception();
 		}
 		cookie = client.getState().getCookies();//设置cookie

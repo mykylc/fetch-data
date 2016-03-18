@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fetch.data.domain.FetchData;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class DBManager {
 	protected static final Logger log = LoggerFactory.getLogger(DBManager.class);
@@ -119,6 +120,8 @@ public class DBManager {
 			pst.setString(57, HashUtils.getHash(fetchData.getPageUrl()));
 			pst.executeUpdate();
 			log.info(String.format("insert data,web site = %s", fetchData.getPageUrl()));
+		} catch (MySQLIntegrityConstraintViolationException ve) {
+			log.error(String.format("[DBManager.prepareSql] this url already exist, url=%s", fetchData.getPageUrl()));
 		} catch (Exception e) {
 			log.error(String.format("[DBManager.prepareSql] 执行sql语句：%s,url=%s,报错：%s", sql, fetchData.getPageUrl(), e.getMessage()), e);
 			throw e;

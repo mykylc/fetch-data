@@ -1,4 +1,4 @@
-CREATE TABLE `fetch_data` (
+CREATE TABLE `Smile_2` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(512) DEFAULT NULL COMMENT '标的名称/公司名称',
   `country` varchar(128) DEFAULT NULL COMMENT '国家',

@@ -131,7 +131,7 @@ public class DBManager {
 	public static void loadPageUrl() throws Exception{
 		Connection conn = DBManager.getInstance();
 		Statement stmt = conn.createStatement();  
-		ResultSet rs = stmt.executeQuery("select page_url from fetch_data");
+		ResultSet rs = stmt.executeQuery("select page_url from Smile_2");
 		while(rs.next()){
 			String pageUrl = rs.getString("page_url");
 			pageUrlMap.put(pageUrl, pageUrl);
